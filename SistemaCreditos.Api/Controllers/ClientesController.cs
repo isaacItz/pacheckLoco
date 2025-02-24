@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SistemaCreditos.Api.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/clientes")]
     [ApiController]
     public class ClientesController : ControllerBase

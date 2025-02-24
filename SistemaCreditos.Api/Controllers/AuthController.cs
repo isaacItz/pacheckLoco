@@ -1,4 +1,5 @@
 ﻿using Aplication.Services;
+using Domain.DTO;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,12 @@ namespace SistemaCreditos.Api.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] Usuario usuario)
+        public IActionResult Login([FromBody] UserLoginDTO usuario)
         {
-            if (usuario.Email == "admin@sistemacreditos.com" && usuario.PasswordHash == "123456") // Simulación de autenticación
+            var user = _authService.ValidarUsuario(usuario);
+            if (user != null) // Simulación de Autenticación
             {
-                var token = _authService.GenerarToken(usuario);
+                var token = _authService.GenerarToken(user);
                 return Ok(new { token });
             }
 

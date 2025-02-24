@@ -1,6 +1,7 @@
 ﻿using Aplication.Services;
 using Domain.DTO;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize(Roles = "Cliente")]
     [ApiController]
     [Route("api/abonos")]
     public class AbonoController : ControllerBase

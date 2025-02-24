@@ -1,12 +1,14 @@
 ﻿using Aplication.Abstractions;
 using Domain.DTO;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace SistemaCreditos.Api.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/usuarios")]
     [ApiController]
     public class UsuarioController : ControllerBase

@@ -1,4 +1,8 @@
-﻿using Domain.Entities;
+﻿using Domain.DTO;
+using Domain.Entities;
+using Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,10 +16,27 @@ namespace Aplication.Services
     public class AuthService
     {
         private readonly IConfiguration _configuration;
+        private readonly AppDbContext _context;
+        private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-        public AuthService(IConfiguration configuration)
+        public AuthService(IConfiguration configuration, AppDbContext context, IPasswordHasher<Usuario> passwordHasher)
         {
+            _context = context;
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _passwordHasher = passwordHasher;
+        }
+
+        public Usuario? ValidarUsuario(UserLoginDTO usuario)
+        {
+            if (string.IsNullOrEmpty(usuario.Email) || string.IsNullOrEmpty(usuario.Password))
+                return null;
+
+            var user = _context.Usuarios.FirstOrDefault(u => u.Email == usuario.Email);
+            if (user == null)
+                return null;
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, usuario.Password);
+            return result == PasswordVerificationResult.Success ? user : null;
         }
 
         public string GenerarToken(Usuario usuario)

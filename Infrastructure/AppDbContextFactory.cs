@@ -13,7 +13,8 @@ namespace Infrastructure
             var basePath = Path.Combine(Directory.GetCurrentDirectory(), "../SistemaCreditos.Api/"); // Cambia esto con el nombre real del proyecto Controllers
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
-                .AddJsonFile("appsettings.Local.json")
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true) // Cargar tu configuración local si existe
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
