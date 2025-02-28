@@ -9,7 +9,6 @@ namespace Domain.Entities
     public class Cliente
     {
         public int Id { get; set; }
-        public string Nombre { get; set; }
         public string Documento { get; set; }
         public string Telefono { get; set; }
         public int UsuarioId { get; set; } // Esta propiedad va a referenciar al usuario

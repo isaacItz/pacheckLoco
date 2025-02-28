@@ -28,14 +28,13 @@ namespace SistemaCreditos.Api.Controllers
             return Ok(clientes);
         }
 
-        [HttpPost("registrarCliente")]
+        [HttpPost]
         public async Task<IActionResult> RegistrarCliente([FromBody] ClienteCreateDTO clienteDto)
         {
             try
             {
                 var cliente = new Cliente
                 {
-                    Nombre = clienteDto.Nombre,
                     Documento = clienteDto.Documento,
                     Telefono = clienteDto.Telefono,
                     UsuarioId = clienteDto.UsuarioId

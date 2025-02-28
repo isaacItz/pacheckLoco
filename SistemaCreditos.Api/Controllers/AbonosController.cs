@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Authorize(Roles = "Cliente")]
+    [Authorize(Roles = "Cliente,Admin")]
     [ApiController]
     [Route("api/abonos")]
     public class AbonoController : ControllerBase
